@@ -1,0 +1,534 @@
+/* ==========================================================================
+   Gebärden erster Klasse — "Große Bühne"-Variante
+   Gleiche CI-Farben wie das Original, aber als großformatige Show-Seite.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Farben — 1:1 aus dem Original übernommen */
+  --ink: #1b2430;
+  --ink-soft: #2b3648;
+  --paper: #faf8f5;
+  --paper-alt: #f1ece3;
+  --white: #ffffff;
+  --accent: #5a6980;
+  --accent-dark: #46536a;
+  --accent-light: #93a1b5;
+  --panel: #eef1f4;
+  --panel-deep: #dde3e9;
+  --text-muted: #5b6472;
+  --text-muted-light: #aeb6c2;
+
+  --font: 'Manrope', sans-serif;
+  --edge: clamp(1.5rem, 6vw, 5rem);
+  --radius: 22px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+p { margin: 0 0 1.1em; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--edge);
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------
+   Button
+   -------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 1em 2.1em;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease, background 0.2s ease;
+}
+
+.btn:hover, .btn:focus-visible {
+  background: var(--accent-dark);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+}
+
+.btn--white {
+  background: var(--white);
+  color: var(--accent-dark);
+}
+
+.btn--white:hover, .btn--white:focus-visible {
+  background: var(--paper);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* --------------------------------------------------------------------
+   Nav — schwebt transparent über dem (dunklen) Hero
+   -------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  padding: 1.6rem 0 4rem;
+  background: linear-gradient(to bottom, rgba(10,13,18,0.65) 0%, rgba(10,13,18,0.32) 55%, rgba(10,13,18,0) 100%);
+  pointer-events: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--edge);
+  pointer-events: auto;
+}
+
+.nav__brand img {
+  width: clamp(96px, 10vw, 136px);
+  filter: brightness(0) invert(1);
+}
+
+.nav .btn--white {
+  font-size: 0.9rem;
+  padding: 0.75em 1.6em;
+}
+
+/* --------------------------------------------------------------------
+   Generic full-bleed stage
+   -------------------------------------------------------------------- */
+.stage {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: clamp(7rem, 14vw, 10rem) var(--edge) clamp(4rem, 8vw, 6rem);
+}
+
+/* --------------------------------------------------------------------
+   Bühne 1 — Hero: schwarz, Text links, Buch schwebt groß rechts
+   -------------------------------------------------------------------- */
+.stage--hero {
+  background: #0f131a;
+  color: var(--paper);
+  text-align: left;
+}
+
+.stage__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.stage__eyebrow {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--accent-light);
+  margin: 0 0 1.2em;
+}
+
+.stage--hero h1 {
+  font-size: clamp(2.6rem, 5.4vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  max-width: 14ch;
+  margin: 0 0 0.5em;
+  color: var(--paper);
+}
+
+.stage__lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: var(--text-muted-light);
+  max-width: 44ch;
+  margin: 0 0 2em;
+}
+
+.stage__cover-wrap {
+  display: grid;
+  place-items: center;
+  padding: 1rem 0;
+}
+
+.stage__cover-float {
+  animation: float 6.5s ease-in-out infinite;
+}
+
+.stage__cover {
+  width: min(600px, 96%);
+  border-radius: 20px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+  50%      { transform: translateY(-24px) rotate(1.2deg); }
+}
+
+.stage__hint {
+  margin-top: clamp(3rem, 7vw, 5rem);
+  font-size: 0.85rem;
+  color: var(--text-muted-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  grid-column: 1 / -1;
+}
+
+.stage__hint svg { color: var(--accent-light); animation: bob 2.2s ease-in-out infinite; }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* One deliberate load-in moment on the hero only */
+.stage--hero .stage__eyebrow,
+.stage--hero h1,
+.stage--hero .stage__lede,
+.stage--hero .hero__actions,
+.stage--hero .stage__cover-wrap {
+  opacity: 0;
+  animation: rise 0.9s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.stage--hero .stage__eyebrow { animation-delay: .05s; }
+.stage--hero h1 { animation-delay: .15s; }
+.stage--hero .stage__lede { animation-delay: .3s; }
+.stage--hero .hero__actions { animation-delay: .42s; }
+.stage--hero .stage__cover-wrap { animation-delay: .38s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------
+   Bühne 2 — Das Zitat, dunkel und riesig
+   -------------------------------------------------------------------- */
+.stage--dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.quote-scene {
+  max-width: 1000px;
+}
+
+.quote-scene__kicker {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  margin-bottom: 1.4em;
+}
+
+.quote-scene blockquote {
+  margin: 0 0 1em;
+  font-size: clamp(1.9rem, 5vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+
+.quote-scene blockquote p { margin: 0; }
+
+.quote-scene__body {
+  color: var(--text-muted-light);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  max-width: 56ch;
+  margin: 1.6em auto 0;
+}
+
+/* --------------------------------------------------------------------
+   Bühne 3 — Zahlen & Merkmale, eine gemeinsame Fläche
+   -------------------------------------------------------------------- */
+.stage--stats {
+  background: var(--panel);
+  min-height: auto;
+  padding-top: clamp(5rem, 10vw, 7rem);
+  padding-bottom: clamp(5rem, 10vw, 7rem);
+}
+
+.stats-block {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.stats,
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  width: 100%;
+}
+
+.stat__value {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent-dark);
+  line-height: 1;
+  margin-bottom: 0.25em;
+}
+
+.stat__label {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 20ch;
+  margin: 0 auto;
+}
+
+.stats-divider {
+  border: none;
+  border-top: 1px solid var(--panel-deep);
+  margin: clamp(3rem, 6vw, 4.5rem) 0;
+}
+
+.feature {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: clamp(1.8rem, 3vw, 2.4rem) 1.6rem;
+  box-shadow: 0 16px 34px -18px rgba(27, 36, 48, 0.28);
+}
+
+.feature__icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1em;
+  color: var(--paper);
+}
+
+.feature:nth-child(1) .feature__icon-badge { background: var(--ink-soft); }
+.feature:nth-child(2) .feature__icon-badge { background: #384357; }
+.feature:nth-child(3) .feature__icon-badge { background: #46536a; }
+.feature:nth-child(4) .feature__icon-badge { background: var(--accent); }
+
+.feature__icon-badge svg { width: 26px; height: 26px; }
+
+.feature__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  max-width: 20ch;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------
+   Bühne 4 — Social, schmal, geht direkt in den Footer über
+   -------------------------------------------------------------------- */
+.stage--outro {
+  background: var(--ink-soft);
+  color: var(--paper);
+  min-height: auto;
+  padding: clamp(3.5rem, 7vw, 5rem) var(--edge) clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.outro {
+  max-width: 560px;
+}
+
+.outro h2 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  max-width: 16ch;
+  margin: 0 auto 0.4em;
+  color: var(--paper);
+}
+
+.outro p {
+  color: var(--text-muted-light);
+  max-width: 40ch;
+  margin: 0 auto 1.8em;
+}
+
+.social__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: 700;
+  padding: 0.9em 1.8em;
+  border-radius: 999px;
+  border: 1.5px solid rgba(250, 248, 245, 0.4);
+  color: var(--paper);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.social__link:hover, .social__link:focus-visible {
+  background: var(--paper);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------
+   Footer — direkt an die Social-Fläche angeschlossen
+   -------------------------------------------------------------------- */
+.site-footer {
+  background: var(--ink-soft);
+  color: var(--text-muted-light);
+  padding: 0 0 2.4rem;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(250, 248, 245, 0.1);
+}
+
+.site-footer .container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 680px;
+  padding: 1.6rem 1.5rem 0;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
+.site-footer__legal { display: flex; gap: 1.4rem; }
+
+.site-footer a:hover, .site-footer a:focus-visible { color: var(--paper); }
+
+/* --------------------------------------------------------------------
+   Unterseiten (Impressum / Datenschutz) — gleicher Look wie die Startseite
+   -------------------------------------------------------------------- */
+.page-hero {
+  background: #0f131a;
+  color: var(--paper);
+  padding: clamp(8.5rem, 16vw, 11.5rem) 0 clamp(3rem, 6vw, 4rem);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent-light);
+}
+
+.page-hero h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--paper);
+  margin: 0;
+}
+
+.legal {
+  background: var(--paper);
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  padding-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+.legal .container {
+  max-width: 720px;
+}
+
+.legal h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2em;
+  color: var(--ink);
+}
+
+.legal p, .legal li {
+  color: var(--text-muted);
+}
+
+.legal a {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------
+   Progressive enhancement: sanftes Einblenden beim Scrollen,
+   nur wenn der Browser CSS-Scroll-Timelines unterstützt.
+   -------------------------------------------------------------------- */
+@supports (animation-timeline: view()) {
+  .quote-scene,
+  .stats-block,
+  .outro {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* --------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .stage__grid { grid-template-columns: 1fr; text-align: center; }
+  .stage--hero { text-align: center; }
+  .stage--hero h1, .stage__lede { margin-left: auto; margin-right: auto; }
+  .stage__cover-wrap { order: -1; }
+  .stats, .features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .stats, .features-grid { grid-template-columns: 1fr; }
+  .site-footer .container { flex-direction: column; align-items: flex-start; white-space: normal; }
+}
+
+/* --------------------------------------------------------------------
+   Reduced motion
+   -------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .stage--hero .stage__eyebrow,
+  .stage--hero h1,
+  .stage--hero .stage__lede,
+  .stage--hero .hero__actions,
+  .stage--hero .stage__cover-wrap,
+  .stage__cover-float,
+  .stage__hint svg {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  @supports (animation-timeline: view()) {
+    .quote-scene, .stats-block, .outro { animation: none !important; opacity: 1 !important; }
+  }
+}
